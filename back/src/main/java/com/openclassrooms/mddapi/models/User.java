@@ -48,7 +48,7 @@ public class User {
           name = "USERS_THEMES",
           joinColumns = @JoinColumn( name = "user_id" ),
           inverseJoinColumns = @JoinColumn( name = "theme_id" ) )
-  private List<Theme> subscription;
+  private List<Theme> themes;
 
   @CreatedDate
   @Column(name = "created_at", updatable = false)

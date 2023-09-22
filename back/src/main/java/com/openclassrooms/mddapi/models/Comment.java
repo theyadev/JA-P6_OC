@@ -30,8 +30,8 @@ public class Comment {
   private User user;
 
   @OneToOne
-  @JoinColumn(name = "product_id", referencedColumnName = "id")
-  private Product product;
+  @JoinColumn(name = "post_id", referencedColumnName = "id")
+  private Post post;
 
   @NonNull
   private String content;
