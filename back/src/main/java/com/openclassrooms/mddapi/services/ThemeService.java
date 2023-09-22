@@ -42,7 +42,7 @@ public class ThemeService {
             throw new NotFoundException();
         }
 
-        boolean alreadySubscribed = theme.getUsers().stream().anyMatch(o -> o.getId().equals(userId));
+        Boolean alreadySubscribed = theme.getUsers().stream().anyMatch(o -> o.getId().equals(userId));
         if (alreadySubscribed) {
             throw new BadRequestException();
         }
