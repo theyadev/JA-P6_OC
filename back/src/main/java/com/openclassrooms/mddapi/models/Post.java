@@ -12,8 +12,8 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "USERS", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "email")
+@Table(name = "POSTS", uniqueConstraints = {
+    @UniqueConstraint(columnNames = "name")
 })
 @Data
 @Accessors(chain = true)
@@ -34,7 +34,6 @@ public class Post {
   @Email
   private String name;
 
-  @NonNull
   private String content;
 
   @OneToOne

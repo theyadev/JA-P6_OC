@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "THEMES")
+@Table(name = "COMMENTS")
 @Data
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)

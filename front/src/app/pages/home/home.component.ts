@@ -18,7 +18,10 @@ export class HomeComponent implements OnInit {
   }
 
   test() {
-    this.httpClient.post<any>("/api/comment", {}).subscribe((x) => {
+    this.httpClient.post<any>("/api/comment", {
+      content: "Hello World",
+      postId: 1
+    }).subscribe((x) => {
       console.log(x)
     })
   }

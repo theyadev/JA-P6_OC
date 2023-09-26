@@ -34,6 +34,10 @@ public class PostService {
         return this.postRepository.findAll();
     }
 
+    public Post findById(Long id) {
+        return this.postRepository.findById(id).orElse(null);
+    }
+ 
     public List<Post> getSubscribedPosts(Long userId) {
         User user = this.userRepository.findById(userId).orElse(null);
 
