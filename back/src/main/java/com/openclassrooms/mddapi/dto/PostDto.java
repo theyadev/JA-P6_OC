@@ -1,24 +1,29 @@
 package com.openclassrooms.mddapi.dto;
 
-import java.time.LocalDateTime;
-
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentDto {
+public class PostDto {
     private Long id;
 
-    @NotNull
-    private Long postId;
+    @NotBlank
+    @Size(max = 50)
+    private String name;
+
+    @NotBlank
+    private String content;
 
     @NotNull
-    private String content;
+    private Long themeId;
 
     private Long userId;
 

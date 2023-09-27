@@ -9,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "THEMES")
@@ -31,12 +30,12 @@ public class Theme {
   @Size(max = 20)
   private String name;
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(
-          name = "USERS_THEMES",
-          joinColumns = @JoinColumn( name = "theme_id" ),
-          inverseJoinColumns = @JoinColumn( name = "user_id" ) )
-  private List<User> users;
+  // @ManyToMany(fetch = FetchType.EAGER)
+  // @JoinTable(
+  //         name = "USERS_THEMES",
+  //         joinColumns = @JoinColumn( name = "theme_id" ),
+  //         inverseJoinColumns = @JoinColumn( name = "user_id" ) )
+  // private List<User> users;
 
   @CreatedDate
   @Column(name = "created_at", updatable = false)

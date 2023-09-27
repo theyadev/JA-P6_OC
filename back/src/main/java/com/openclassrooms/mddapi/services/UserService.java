@@ -14,6 +14,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User findById(Long id) {
+        return this.userRepository.findById(id).orElse(null);
+    }
+
     public User update(User user, UpdateRequest updateRequest) {
         String username = updateRequest.getUsername().orElse(null);
         String email = updateRequest.getEmail().orElse(null);

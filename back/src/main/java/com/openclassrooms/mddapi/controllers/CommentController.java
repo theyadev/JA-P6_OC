@@ -10,18 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openclassrooms.mddapi.dto.CommentDto;
 import com.openclassrooms.mddapi.mapper.CommentMapper;
 import com.openclassrooms.mddapi.models.Comment;
 import com.openclassrooms.mddapi.models.Post;
-import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.payload.request.CommentRequest;
 import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
 import com.openclassrooms.mddapi.services.CommentService;
 import com.openclassrooms.mddapi.services.PostService;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/comment")
@@ -37,36 +33,19 @@ public class CommentController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> create(@Valid @RequestBody CommentRequest commentRequest) {
+    public ResponseEntity<?> create(@Valid @RequestBody CommentDto commentDto) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        log.info(commentRequest.getPostId());
-        log.info(userDetails.getEmail());
 
-        Post post = postService.findById(commentRequest.getPostId());
+        Post post = postService.findById(commentDto.getPostId());
 
         if (post == null) {
             return ResponseEntity.notFound().build();
         }
 
-        log.info(post);
+        commentDto.setUserId(userDetails.getId());
 
-        Comment commentData = Comment.builder()
-                .content(commentRequest.getContent())
-                .post(post)
-                .user(User.builder()
-                        .id(userDetails.getId())
-                        .username(userDetails.getUsername())
-                        .password(userDetails.getPassword())
-                        .email(userDetails.getEmail())
-                        .build())
-                .build();
-
-        log.info(commentData);
-
-        Comment comment = this.commentService.create(commentData);
-
-        log.info(comment);
+        Comment comment = this.commentService.create(commentMapper.toEntity(commentDto));
 
         return ResponseEntity.ok().body(commentMapper.toDto(comment));
     }

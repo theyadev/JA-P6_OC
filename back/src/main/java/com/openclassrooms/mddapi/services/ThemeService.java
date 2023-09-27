@@ -23,49 +23,53 @@ public class ThemeService {
     }
 
     public Theme create(Theme theme) {
-        return this.themeRepository.save(theme);
+        return themeRepository.save(theme);
     }
 
     public void delete(Long id) {
-        this.themeRepository.deleteById(id);
+        themeRepository.deleteById(id);
     }
 
     public List<Theme> findAll() {
-        return this.themeRepository.findAll();
+        return themeRepository.findAll();
+    }
+
+    public Theme findById(Long id) {
+        return themeRepository.findById(id).orElse(null);
     }
 
     public void subscribe(Long id, Long userId) {
-        Theme theme = this.themeRepository.findById(id).orElse(null);
-        User user = this.userRepository.findById(userId).orElse(null);
+        Theme theme = themeRepository.findById(id).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
 
         if (theme == null || user == null) {
             throw new NotFoundException();
         }
 
-        Boolean alreadySubscribed = theme.getUsers().stream().anyMatch(o -> o.getId().equals(userId));
+        Boolean alreadySubscribed = user.getThemes().contains(theme);
         if (alreadySubscribed) {
             throw new BadRequestException();
         }
 
-        theme.getUsers().add(user);
+        user.getThemes().add(theme);
 
-        this.themeRepository.save(theme);
+        userRepository.save(user);
     }
 
     public void unsubscribe(Long id, Long userId) {
-        Theme theme = this.themeRepository.findById(id).orElse(null);
-        User user = this.userRepository.findById(userId).orElse(null);
+        Theme theme = themeRepository.findById(id).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
 
         if (theme == null || user == null) {
             throw new NotFoundException();
         }
 
-        Boolean subscribed = theme.getUsers().contains(user);
+        Boolean subscribed = user.getThemes().contains(theme);
         if (!subscribed) {
             throw new BadRequestException();
         }
 
-        theme.getUsers().remove(user);
-        this.themeRepository.save(theme);
+        user.getThemes().remove(theme);
+        userRepository.save(user);
     }
 }
