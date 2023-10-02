@@ -1,25 +1,43 @@
-<div class="login" fxLayout="row" fxLayoutAlign="center center">
-    hello
-    <mat-card>
-        <mat-card-header fxLayoutAlign="center center">
-            <mat-card-title>Login</mat-card-title>
-        </mat-card-header>
-        <form class="login-form" [formGroup]="form" (ngSubmit)="submit()">
-            <mat-card-content fxLayout="column">
-                <mat-form-field fxFlex>
-                    <input matInput placeholder="Email" formControlName="email">
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password"
-                        formControlName="password">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
-            </mat-card-content>
-            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
-            <p *ngIf="onError" class="error">An error occurred</p>
-        </form>
-    </mat-card>
+<div class="py-4">
+  <div class="grid grid-cols-3">
+    <div class="px-4 md:px-16">
+      <span class="cursor-pointer" routerLink="">Arrow back</span>
+    </div>
+    <div>
+      <h1 class="text-center">Connexion</h1>
+    </div>
+    <div></div>
+  </div>
+  <form
+    class="flex flex-col items-center w-full gap-y-8"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <input
+      class="w-3/4 px-4 py-2 border rounded md:w-1/4"
+      placeholder="Email"
+      formControlName="email"
+    />
+    <input
+      class="w-3/4 px-4 py-2 border rounded md:w-1/4"
+      [type]="hide ? 'password' : 'text'"
+      placeholder="Mot de passe"
+      formControlName="password"
+    />
+    <!-- <button
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        {{ hide ? 'Show' : 'Hide' }}
+      </button> -->
+    <button
+      class="px-4 py-2 font-semibold text-white bg-purple-500 rounded"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Se connecter
+    </button>
+    <p *ngIf="onError" class="error">An error occurred</p>
+  </form>
 </div>
