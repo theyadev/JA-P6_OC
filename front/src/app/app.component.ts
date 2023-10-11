@@ -18,17 +18,21 @@ export class AppComponent {
     private sessionService: SessionService
   ) {}
 
+  ngOnInit(): void {
+    const sessionInformation = sessionStorage.getItem('sessionInformation');
+
+    if (sessionInformation) {
+      this.sessionService.logIn(JSON.parse(sessionInformation));
+    }
+  }
+
   public $isLogged(): Observable<boolean> {
     return this.sessionService.$isLogged();
   }
 
-  public $showNavBar(): Observable<boolean> {
-    // Show navbar everywhere EXCEPT on index page when not logged in
-    const currentUrl = this.router.url;
-    if (currentUrl !== '/') return of(true);
-
-
-    return this.$isLogged();
+  public $showNavBar(): boolean {
+    if (this.router.url === '/') return false
+    return true
   }
 
   public logout(): void {

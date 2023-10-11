@@ -1,4 +1,4 @@
 <div class="flex flex-col w-screen h-screen">
-  <navbar *ngIf="$showNavBar() | async;" [isLogged]="($isLogged() | async) || false"></navbar>
+  <navbar *ngIf="$showNavBar()" [isLogged]="($isLogged() | async) || false"></navbar>
   <router-outlet></router-outlet>
 </div>

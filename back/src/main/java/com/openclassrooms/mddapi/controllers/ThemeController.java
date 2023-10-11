@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,27 +30,28 @@ public class ThemeController {
 
     @GetMapping()
     public ResponseEntity<?> findAll() {
+        System.out.println("findAll");
         List<Theme> themes = themeService.findAll();
 
         return ResponseEntity.ok().body(themeMapper.toDto(themes));
     }
 
     @PostMapping("/subscribe/{id}")
-    public ResponseEntity<?> subscribe(Long id) {
+    public ResponseEntity<?> subscribe(@PathVariable("id") String id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        themeService.subscribe(id, userDetails.getId());
+        themeService.subscribe(Long.valueOf(id), userDetails.getId());
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/unsubscribe/{id}")
-    public ResponseEntity<?> unsubscribe(Long id) {
+    public ResponseEntity<?> unsubscribe(@PathVariable("id") String id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        themeService.unsubscribe(id, userDetails.getId());
+        themeService.unsubscribe(Long.valueOf(id), userDetails.getId());
 
         return ResponseEntity.ok().build();
     }

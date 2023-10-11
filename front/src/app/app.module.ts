@@ -7,9 +7,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { ThemesComponent } from './pages/themes/themes.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavbarComponent],
+  declarations: [AppComponent, HomeComponent, NavbarComponent, PostsComponent, ThemesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

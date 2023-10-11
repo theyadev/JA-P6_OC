@@ -5,11 +5,11 @@ import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'app-themes',
+  templateUrl: './themes.component.html',
   styleUrls: [],
 })
-export class HomeComponent implements OnInit {
+export class ThemesComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private sessionService: SessionService,
@@ -17,8 +17,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.sessionService.$isLogged()) {
-      this.router.navigate(['/posts']);
-    }
+
   }
 }

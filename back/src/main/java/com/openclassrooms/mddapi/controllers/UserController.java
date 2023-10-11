@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,16 @@ public class UserController {
                 .getPrincipal();
 
         User user = userService.findById(userDetails.getId());
+
+        return ResponseEntity.ok().body(userMapper.toDto(user));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") String id) {
+        System.out.println(id);
+        User user = userService.findById(Long.valueOf(id));
+
+        System.out.println(user);
 
         return ResponseEntity.ok().body(userMapper.toDto(user));
     }

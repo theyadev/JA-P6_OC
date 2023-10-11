@@ -28,14 +28,12 @@ public abstract class PostMapper implements EntityMapper<PostDto, Post> {
     @Mappings({
             @Mapping(target = "theme", expression = "java(postDto.getThemeId() != null ? this.themeService.findById(postDto.getThemeId()) : null)"),
             @Mapping(target = "user", expression = "java(postDto.getUserId() != null ? this.userService.findById(postDto.getUserId()) : null)"),
-
     })
     public abstract Post toEntity(PostDto postDto);
 
     @Mappings({
             @Mapping(source = "post.theme.id", target = "themeId"),
             @Mapping(source = "post.user.id", target = "userId"),
-
     })
     public abstract PostDto toDto(Post post);
 }

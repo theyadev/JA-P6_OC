@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -7,8 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   @Input() isLogged?: boolean;
-  // @Input() value?: string | number;
-  constructor() {}
 
-  ngOnInit(): void {}
+  currentRoute = this.router.url;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      this.currentRoute = this.router.url;
+    });
+  }
 }

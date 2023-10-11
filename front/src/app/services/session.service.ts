@@ -18,12 +18,16 @@ export class SessionService {
 
   public logIn(user: SessionInformation): void {
     this.sessionInformation = user;
+
+    sessionStorage.setItem('sessionInformation', JSON.stringify(user));
+
     this.isLogged = true;
     this.next();
   }
 
   public logOut(): void {
     this.sessionInformation = undefined;
+    sessionStorage.removeItem('sessionInformation');
     this.isLogged = false;
     this.next();
   }

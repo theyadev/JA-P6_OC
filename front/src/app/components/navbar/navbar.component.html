@@ -1,8 +1,8 @@
 <nav class="flex items-center justify-between w-screen px-16 border-b">
     <img class="h-12" src="/assets/logo_p6.png" alt="logo" />
     <div class="flex items-center gap-x-8" *ngIf="isLogged">
-        <span class="cursor-pointer" routerLink="posts">Articles</span>
-        <span class="cursor-pointer" routerLink="themes">Thèmes</span>
+        <span class="cursor-pointer" [ngClass]="{'font-semibold': currentRoute === '/posts'}" routerLink="posts">Articles</span>
+        <span class="cursor-pointer" [ngClass]="{'font-semibold': currentRoute === '/themes'}" routerLink="themes">Thèmes</span>
         <img class="h-10 rounded-full" src="/assets/default_avatar.jpeg" alt="logo" />
     </div>
 </nav>
