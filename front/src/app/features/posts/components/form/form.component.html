@@ -1,0 +1,52 @@
+<div class="flex flex-col items-center px-16 py-4 gap-y-8">
+  <div class="grid w-full grid-cols-3">
+    <div class="px-4 md:px-16">
+      <span class="cursor-pointer" routerLink="">Arrow back</span>
+    </div>
+    <div>
+      <h1 class="text-center">Créer un nouvel article</h1>
+    </div>
+    <div></div>
+  </div>
+  <form
+    class="flex flex-col w-full gap-y-4 md:w-1/2"
+    *ngIf="postForm"
+    [formGroup]="postForm"
+    (ngSubmit)="submit()"
+  >
+    <select
+      formControlName="themeId"
+      class="w-full p-2 border border-gray-300 rounded"
+      placeholder="qdssqd"
+    >
+      <option value="" disabled selected>Sélectionner un thème</option>
+      <option *ngFor="let theme of $themes | async" [value]="theme.id">
+        {{ theme.name }}
+      </option>
+    </select>
+    <input
+      type="text"
+      formControlName="name"
+      placeholder="Titre de l'article"
+      class="w-full p-2 border border-gray-300 rounded"
+    />
+    <textarea
+      formControlName="content"
+      placeholder="Contenu de l'article"
+      class="w-full p-2 border border-gray-300 rounded min-h-[10rem]"
+    ></textarea>
+    <button
+      type="submit"
+      class="px-4 py-2 text-white transition-colors duration-300 bg-purple-500 rounded cursor-pointer w-max hover:bg-purple-700"
+    >
+      Créer un article
+    </button>
+    <div
+      *ngIf="error"
+      class="flex items-center justify-between w-full p-4 text-white bg-red-500 rounded"
+    >
+      <span>{{ error }}</span>
+      <span class="cursor-pointer" (click)="error = ''">close</span>
+    </div>
+  </form>
+</div>

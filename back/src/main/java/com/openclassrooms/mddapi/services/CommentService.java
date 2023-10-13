@@ -14,6 +14,10 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
+    public Comment findById(Long id) {
+        return this.commentRepository.findById(id).orElse(null);
+    }
+
     public Comment create(Comment comment) {
         return this.commentRepository.save(comment);
     }

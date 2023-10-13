@@ -37,7 +37,6 @@ public abstract class UserMapper implements EntityMapper<UserDto, User> {
         })
         public abstract UserDto toDto(User user);
 
-        // Custom method to map a list of theme IDs to a list of Theme entities
         protected List<Theme> mapThemes(List<Long> themeIds) {
                 return themeIds.stream()
                 .map((Long id) -> themeService.findById(id))
@@ -45,7 +44,6 @@ public abstract class UserMapper implements EntityMapper<UserDto, User> {
                 .collect(Collectors.toList());
         }
 
-        // Custom method to map a list of Theme entities to a list of theme IDs
         protected List<Long> mapThemeIds(List<Theme> themes) {
                 return themes.stream()
                 .map(Theme::getId)

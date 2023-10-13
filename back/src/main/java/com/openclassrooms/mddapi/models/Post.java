@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "POSTS", uniqueConstraints = {
@@ -41,6 +42,9 @@ public class Post {
   @OneToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
+
+  @OneToMany(mappedBy = "post")
+  private List<Comment> comments;
 
   @CreatedDate
   @Column(name = "created_at", updatable = false)

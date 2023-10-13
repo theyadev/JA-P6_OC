@@ -5,6 +5,7 @@ export default interface Post {
   name: string;
   content: string;
   themeId: number;
+  comments?: number[];
   userId?: number;
   user?: User;
   createdAt?: string;

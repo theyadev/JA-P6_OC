@@ -16,6 +16,10 @@ export class ThemeService {
     return this.httpClient.get<Theme[]>(this.pathService);
   }
 
+  public detail(id: string): Observable<Theme> {
+    return this.httpClient.get<Theme>(`${this.pathService}/${id}`);
+  }
+
   public subscribe(id: string): Observable<Theme> {
     return this.httpClient.post<Theme>(`${this.pathService}/${id}/subscribe`, {});
   }

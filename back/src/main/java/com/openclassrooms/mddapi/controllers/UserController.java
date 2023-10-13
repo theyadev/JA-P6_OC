@@ -37,10 +37,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") String id) {
-        System.out.println(id);
         User user = userService.findById(Long.valueOf(id));
-
-        System.out.println(user);
 
         return ResponseEntity.ok().body(userMapper.toDto(user));
     }

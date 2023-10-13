@@ -30,10 +30,16 @@ public class ThemeController {
 
     @GetMapping()
     public ResponseEntity<?> findAll() {
-        System.out.println("findAll");
         List<Theme> themes = themeService.findAll();
 
         return ResponseEntity.ok().body(themeMapper.toDto(themes));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") String id) {
+        Theme theme = themeService.findById(Long.valueOf(id));
+
+        return ResponseEntity.ok().body(themeMapper.toDto(theme));
     }
 
     @PostMapping("/subscribe/{id}")
