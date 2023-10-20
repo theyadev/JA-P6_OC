@@ -46,6 +46,9 @@ public abstract class PostMapper implements EntityMapper<PostDto, Post> {
         public abstract PostDto toDto(Post post);
 
         protected List<Comment> mapComments(List<Long> commentIds) {
+                if (commentIds == null) {
+                        return Collections.emptyList();
+                }
                 return commentIds.stream()
                                 .map((Long id) -> commentService.findById(id))
                                 .filter(comment -> comment != null)
@@ -53,6 +56,9 @@ public abstract class PostMapper implements EntityMapper<PostDto, Post> {
         }
 
         protected List<Long> mapCommentIds(List<Comment> comments) {
+                if (comments == null) {
+                        return Collections.emptyList();
+                }
                 return comments.stream()
                                 .map(Comment::getId)
                                 .collect(Collectors.toList());

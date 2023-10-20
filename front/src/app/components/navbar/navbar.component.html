@@ -3,6 +3,6 @@
     <div class="flex items-center gap-x-8" *ngIf="isLogged">
         <span class="cursor-pointer" [ngClass]="{'font-semibold': currentRoute === '/posts'}" routerLink="posts">Articles</span>
         <span class="cursor-pointer" [ngClass]="{'font-semibold': currentRoute === '/themes'}" routerLink="themes">Thèmes</span>
-        <img class="h-10 rounded-full" src="/assets/default_avatar.jpeg" alt="logo" />
+        <img class="h-10 rounded-full cursor-pointer" routerLink="me" src="/assets/default_avatar.jpeg" alt="logo" />
     </div>
 </nav>

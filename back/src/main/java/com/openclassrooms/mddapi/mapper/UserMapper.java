@@ -38,6 +38,9 @@ public abstract class UserMapper implements EntityMapper<UserDto, User> {
         public abstract UserDto toDto(User user);
 
         protected List<Theme> mapThemes(List<Long> themeIds) {
+                if (themeIds == null) {
+                        return Collections.emptyList();
+                }
                 return themeIds.stream()
                 .map((Long id) -> themeService.findById(id))
                 .filter(theme -> theme != null)
@@ -45,6 +48,9 @@ public abstract class UserMapper implements EntityMapper<UserDto, User> {
         }
 
         protected List<Long> mapThemeIds(List<Theme> themes) {
+                if (themes == null) {
+                        return Collections.emptyList();
+                }
                 return themes.stream()
                 .map(Theme::getId)
                 .collect(Collectors.toList());

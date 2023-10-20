@@ -42,7 +42,7 @@ public class ThemeController {
         return ResponseEntity.ok().body(themeMapper.toDto(theme));
     }
 
-    @PostMapping("/subscribe/{id}")
+    @PostMapping("/{id}/subscribe")
     public ResponseEntity<?> subscribe(@PathVariable("id") String id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -52,7 +52,7 @@ public class ThemeController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/unsubscribe/{id}")
+    @PostMapping("/{id}/unsubscribe")
     public ResponseEntity<?> unsubscribe(@PathVariable("id") String id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();

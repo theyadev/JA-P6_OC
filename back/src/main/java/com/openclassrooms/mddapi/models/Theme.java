@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -29,6 +30,9 @@ public class Theme {
   @NonNull
   @Size(max = 20)
   private String name;
+
+  @NotBlank
+  private String description;
 
   // @ManyToMany(fetch = FetchType.EAGER)
   // @JoinTable(

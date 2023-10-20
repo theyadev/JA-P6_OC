@@ -19,8 +19,8 @@ public class UserService {
     }
 
     public User update(User user, UpdateRequest updateRequest) {
-        String username = updateRequest.getUsername().orElse(null);
-        String email = updateRequest.getEmail().orElse(null);
+        String username = updateRequest.getUsername();
+        String email = updateRequest.getEmail();
 
         if (username == null && email == null) {
             return user;

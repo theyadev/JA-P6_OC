@@ -14,4 +14,15 @@ export class UserService {
   public detail(id: string): Observable<User> {
     return this.httpClient.get<User>(`${this.pathService}/${id}`);
   }
+
+  public me(): Observable<User> {
+    return this.httpClient.get<User>(`${this.pathService}/me`);
+  }
+
+  public update(user: User): Observable<User> {
+    return this.httpClient.post<User>(`${this.pathService}/`, {
+      email: user.email,
+      username: user.username,
+    });
+  }
 }

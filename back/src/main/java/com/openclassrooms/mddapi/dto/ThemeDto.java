@@ -19,6 +19,9 @@ public class ThemeDto {
     @Size(max = 50)
     private String name;
 
+    @NotBlank
+    private String description;
+
     // private List<Long> users;
 
     private LocalDateTime createdAt;

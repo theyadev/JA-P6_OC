@@ -8,14 +8,17 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ThemesComponent } from './pages/themes/themes.component';
+import { MeComponent } from './pages/me/me.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavbarComponent, ThemesComponent],
+  declarations: [AppComponent, HomeComponent, NavbarComponent, ThemesComponent, MeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
