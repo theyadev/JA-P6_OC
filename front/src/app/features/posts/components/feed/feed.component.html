@@ -1,4 +1,4 @@
-<div class="flex flex-col px-16 py-4 gap-y-8">
+<div class="flex flex-col px-2 py-4 md:px-16 gap-y-8">
     <div class="flex items-center justify-between">
         <span routerLink="/posts/create" class="px-4 py-2 text-white transition-colors duration-300 bg-purple-500 rounded cursor-pointer w-max hover:bg-purple-700">Créer un article</span>
         <span class="font-semibold cursor-pointer" (click)="changeSorting()">Trier par <span *ngIf="($sorting | async ) == 'new'">↓</span><span *ngIf="($sorting | async ) == 'old'">↑</span></span>
