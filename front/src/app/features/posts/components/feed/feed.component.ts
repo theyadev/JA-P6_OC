@@ -6,7 +6,7 @@ import { PostService } from 'src/app/services/post.service';
 import Post from 'src/app/interfaces/post.interface';
 import { ThemeService } from 'src/app/services/theme.service';
 import Theme from 'src/app/interfaces/theme.interface';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
+import { Observable, Subscription, forkJoin, map, of, switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -17,7 +17,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class FeedComponent implements OnInit {
   public $posts: Observable<Post[]> = this.postService.feed();
-  public $sorting: Observable<'new' | 'old'> = of('new');
+  public sorting: 'new' | 'old' = 'new'
 
   constructor(
     private httpClient: HttpClient,
@@ -43,9 +43,7 @@ export class FeedComponent implements OnInit {
       })
     );
 
-    this.$sorting.subscribe((sortingCriteria) => {
-      this.sortPosts(sortingCriteria);
-    });
+    this.sortPosts('new');
   }
 
   formatDate(date: string) {
@@ -71,11 +69,9 @@ export class FeedComponent implements OnInit {
   }
 
   changeSorting() {
-    this.$sorting.subscribe((sortingCriteria) => {
-      const newSorting = sortingCriteria === 'new' ? 'old' : 'new';
+    const newSorting = this.sorting === 'new' ? 'old' : 'new';
 
-      this.$sorting = of(newSorting);
-      this.sortPosts(newSorting);
-    });
+    this.sorting = newSorting;
+    this.sortPosts(newSorting);
   }
 }

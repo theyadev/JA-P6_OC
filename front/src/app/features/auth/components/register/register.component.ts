@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RegisterRequest } from '../../interfaces/registerRequest.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: []
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
+  private $subscription?: Subscription
 
   public onError = false;
 
@@ -53,4 +55,7 @@ export class RegisterComponent {
     );
   }
 
+  ngOnDestroy(): void {
+      this.$subscription?.unsubscribe()
+  }
 }

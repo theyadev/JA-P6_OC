@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import Theme from 'src/app/interfaces/theme.interface';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { ThemeService } from 'src/app/services/theme.service';
 import User from 'src/app/interfaces/user.interface';
 import { UserService } from 'src/app/services/user.service';
@@ -15,11 +15,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './me.component.html',
   styleUrls: [],
 })
-export class MeComponent implements OnInit {
+export class MeComponent implements OnInit, OnDestroy {
   public $user: Observable<User> = this.userService.me();
   public themes: Theme[] = [];
   public updateForm?: FormGroup;
-
+  private $subscription?: Subscription
   constructor(
     private httpClient: HttpClient,
     private sessionService: SessionService,
@@ -34,17 +34,25 @@ export class MeComponent implements OnInit {
       this.initForm(user);
       this.themes = [];
       for (let theme of user.themes) {
-        this.themeService.detail(theme.toString()).subscribe((theme) => {
-          this.themes.push(theme);
-        });
+        this.themeService.detail(theme.toString()).pipe(
+          map((theme) => {
+            this.themes.push(theme);
+          })
+        );
       }
     });
   }
 
+  ngOnDestroy(): void {
+      this.$subscription?.unsubscribe()
+  }
+
   unsubscribe(themeId: number) {
-    this.themeService.unsubscribe(themeId.toString()).subscribe((response) => {
-      this.themes = this.themes.filter((theme) => theme.id !== themeId);
-    });
+    this.themeService.unsubscribe(themeId.toString()).pipe(
+      map((response) => {
+        this.themes = this.themes.filter((theme) => theme.id !== themeId);
+      })
+    );
   }
 
   private initForm(user: User): void {
@@ -63,7 +71,7 @@ export class MeComponent implements OnInit {
   submit(): void {
     const user = this.updateForm?.value as User;
 
-    this.userService.update(user).subscribe((user) => {
+    this.$subscription = this.userService.update(user).subscribe((user) => {
       this.initForm(user);
     });
   }

@@ -18,6 +18,14 @@ public class UserService {
         return this.userRepository.findById(id).orElse(null);
     }
 
+    public User findByEmail(String email) {
+        return this.userRepository.findByEmail(email).orElse(null);
+    }
+
+    public User create(User user) {
+        return userRepository.save(user);
+    }
+
     public User update(User user, UpdateRequest updateRequest) {
         String username = updateRequest.getUsername();
         String email = updateRequest.getEmail();

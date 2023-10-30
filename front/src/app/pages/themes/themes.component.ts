@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import Theme from 'src/app/interfaces/theme.interface';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ThemeService } from 'src/app/services/theme.service';
 import { UserService } from 'src/app/services/user.service';
 import User from 'src/app/interfaces/user.interface';
@@ -29,14 +29,18 @@ export class ThemesComponent implements OnInit {
   ngOnInit(): void {}
 
   subscribe(themeId: number) {
-    this.themeService.subscribe(themeId.toString()).subscribe((response) => {
-      this.$user = this.userService.me();
-    });
+    this.themeService.subscribe(themeId.toString()).pipe(
+      map((response) => {
+        this.$user = this.userService.me();
+      })
+    );
   }
 
   unsubscribe(themeId: number) {
-    this.themeService.unsubscribe(themeId.toString()).subscribe((response) => {
-      this.$user = this.userService.me();
-    });
+    this.themeService.unsubscribe(themeId.toString()).pipe(
+      map((response) => {
+        this.$user = this.userService.me();
+      })
+    );
   }
 }

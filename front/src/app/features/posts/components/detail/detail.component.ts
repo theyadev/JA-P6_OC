@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import Post from 'src/app/interfaces/post.interface';
 import { ThemeService } from 'src/app/services/theme.service';
 import Theme from 'src/app/interfaces/theme.interface';
-import { Observable, forkJoin, map, of, switchMap } from 'rxjs';
+import { Observable, Subscription, forkJoin, map, of, switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { SessionService } from 'src/app/services/session.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -19,12 +19,14 @@ import User from 'src/app/interfaces/user.interface';
   templateUrl: './detail.component.html',
   styleUrls: [],
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   public postId: string;
   public post?: Post;
   public user?: User;
   public theme?: Theme;
   public $comments: Observable<Comment[]> = of([]);
+
+  private $subscription?: Subscription
 
   public commentForm?: FormGroup;
   constructor(
@@ -46,8 +48,12 @@ export class DetailComponent implements OnInit {
     this.initForm()
   }
 
+  ngOnDestroy(): void {
+      this.$subscription?.unsubscribe()
+  }
+
   private fetchPost(): void {
-    this.postService
+    this.$subscription = this.postService
       .detail(this.postId)
       .subscribe((post) => {
         this.post = post;
@@ -95,8 +101,9 @@ export class DetailComponent implements OnInit {
     }
     
     const createdComment = this.commentService.create(comment)
-    createdComment.subscribe((comment) => {
+    const subscription = createdComment.subscribe((comment) => {
       this.fetchComments()
+      subscription.unsubscribe()
     })
     this.commentForm?.reset()
   }

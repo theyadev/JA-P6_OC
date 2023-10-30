@@ -1,4 +1,4 @@
-<nav class="flex items-center justify-between w-screen px-16 border-b">
+<nav class="flex items-center justify-between w-screen px-4 border-b md:px-16">
     <img class="h-12" src="/assets/logo_p6.png" alt="logo" />
     <div class="flex items-center gap-x-8" *ngIf="isLogged">
         <span class="cursor-pointer" [ngClass]="{'font-semibold': currentRoute === '/posts'}" routerLink="posts">Articles</span>
