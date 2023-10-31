@@ -28,7 +28,7 @@ export class ThemesComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  subscribe(themeId: number) {
+  subscribe(themeId: number): void {
     this.themeService.subscribe(themeId.toString()).pipe(
       map((response) => {
         this.$user = this.userService.me();
@@ -36,7 +36,7 @@ export class ThemesComponent implements OnInit {
     );
   }
 
-  unsubscribe(themeId: number) {
+  unsubscribe(themeId: number): void {
     this.themeService.unsubscribe(themeId.toString()).pipe(
       map((response) => {
         this.$user = this.userService.me();

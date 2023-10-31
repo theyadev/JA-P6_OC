@@ -107,16 +107,5 @@ export class DetailComponent implements OnInit, OnDestroy {
     })
     this.commentForm?.reset()
   }
-  
-  public formatDate(date: string) {
-    const dateObject = new Date(date);
-
-    const day = dateObject.getDate();
-    const month = dateObject.getMonth() + 1;
-    const year = dateObject.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  }
-
 
 }

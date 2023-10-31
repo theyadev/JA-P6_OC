@@ -18,7 +18,7 @@ import com.openclassrooms.mddapi.payload.request.UpdateRequest;
 import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
 import com.openclassrooms.mddapi.services.UserService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {

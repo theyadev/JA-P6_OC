@@ -46,17 +46,7 @@ export class FeedComponent implements OnInit {
     this.sortPosts('new');
   }
 
-  formatDate(date: string) {
-    const dateObject = new Date(date);
-
-    const day = dateObject.getDate();
-    const month = dateObject.getMonth() + 1;
-    const year = dateObject.getFullYear();
-
-    return `${day}/${month}/${year}`;
-  }
-
-  sortPosts(sortingCriteria: 'new' | 'old') {
+  sortPosts(sortingCriteria: 'new' | 'old'): void {
     this.$posts = this.$posts.pipe(
       map((posts) => {
         return posts.sort((a, b) => {
@@ -68,7 +58,7 @@ export class FeedComponent implements OnInit {
     );
   }
 
-  changeSorting() {
+  changeSorting(): void {
     const newSorting = this.sorting === 'new' ? 'old' : 'new';
 
     this.sorting = newSorting;

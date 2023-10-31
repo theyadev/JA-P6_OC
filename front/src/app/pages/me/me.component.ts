@@ -63,7 +63,6 @@ export class MeComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    console.log('logout');
     this.sessionService.logOut();
     this.router.navigate(['/']);
   }

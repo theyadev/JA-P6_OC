@@ -16,7 +16,7 @@ import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
 import com.openclassrooms.mddapi.services.ThemeService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
 @RequestMapping("/api/theme")
 public class ThemeController {

@@ -20,7 +20,7 @@ import com.openclassrooms.mddapi.security.services.UserDetailsImpl;
 import com.openclassrooms.mddapi.services.CommentService;
 import com.openclassrooms.mddapi.services.PostService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
 @RequestMapping("/api/comment")
 public class CommentController {
